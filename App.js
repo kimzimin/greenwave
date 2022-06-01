@@ -1,9 +1,8 @@
 import React,{useCallback} from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Login from './Login';
 import Home from './Home';
-import SignUp from './SignUp';
+import SignupScreen from './SignUp';
 import {
   StyleSheet,
   Text,
@@ -11,7 +10,7 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
-
+import LoginScreen from './Login';
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -21,8 +20,8 @@ function App() {
     headerShown: false
   }}>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="SignUp" component={SignupScreen} />
     </Stack.Navigator>
     </NavigationContainer>);
 }
