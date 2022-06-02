@@ -1,3 +1,12 @@
+/*깔았던 패키지 총 정리
+  npm i @react-navigation/native react-native-screens react-native-safe-area-context react-native-paper
+  npm i @react-navigation/native-stack react-native-appearance react-native-gesture-handler react-native-reanimated
+  npm i @react-native-community/masked-view @react-navigation/stack @react-navigation/bottom-tabs react-native-vector-icons
+  npm install date-fns react-native-calendars --save
+  npm i -D @types/react-native-vector-icons
+  npx react-native link react-native-vector-icons react-native-appearance
+*/
+
 import React,{useCallback} from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
