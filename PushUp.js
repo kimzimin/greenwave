@@ -1,10 +1,21 @@
-import React, {useState} from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, { Component, useState } from "react";
+import {View, Text, StyleSheet, TouchableOpacity, TouchableHighlight} from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Stopwatch, Timer } from 'react-native-stopwatch-timer';
 
-function PushUp({navigation}) {
- 
+const PushUp = ({navigation}) => {
+  const [start,setStart]=useState(false);
+  const[reset,setReset] = useState(false);
+  toggleStopwatch=()=>{
+    setStart(!start);
+    setReset(false);
+  }
+  resetStopwatch=()=>{
+    setStart(false);
+    setReset(true);
+  }
+
   return (<View style={styles.container}>
      <View style={styles.head}><AntDesign onPress={() => navigation.goBack()} name="left" size={24}/>
 </View>
@@ -12,9 +23,17 @@ function PushUp({navigation}) {
     <MaterialCommunityIcons style={styles.workIcon} name="arm-flex" size={75} color="#065509" />
     <Text style={styles.text}>팔굽혀펴기</Text>
     <Text style={styles.text2}>남은 시간</Text>
-    <Text style={styles.time}>00:00:00</Text>
+    <Stopwatch laps msecs  start={start}
+        reset={reset}
+        options={options}
+        getTime={(time) => {}} />
     <Text style={styles.text2}>시작 버튼을 눌러 측정을 시작하세요.</Text>
-    <TouchableOpacity style={styles.btn}><Text style={styles.text3}>시작</Text></TouchableOpacity>
+    <TouchableHighlight onPress={toggleStopwatch} style={styles.btn}>
+        <Text style={styles.text3}>{!start ? "Start" : "Stop"}</Text>
+      </TouchableHighlight>
+      <TouchableHighlight onPress={resetStopwatch} style={styles.btn}>
+        <Text style={styles.text3}>Reset</Text>
+      </TouchableHighlight>
     </View>
 
   
@@ -22,6 +41,14 @@ function PushUp({navigation}) {
 }
 
 export default PushUp;
+
+
+const options = {
+  text: {
+    fontSize: 50,
+    marginTop:'5%'
+  }
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -45,7 +72,7 @@ const styles = StyleSheet.create({
     text2:{
       color:'grey',
       fontSize:20,
-      marginTop:'25%'
+      marginTop:'20%'
     },
 
     time:{
@@ -69,14 +96,14 @@ const styles = StyleSheet.create({
     height:'10%',
     alignItems:'center',
     paddingVertical:'5%',
-    marginTop:'20%',
+    marginTop:'10%',
     borderRadius:15
   },
 
   text3:{
     color:'white',
     textAlign:'center',
-    fontSize:20
+    fontSize:30
   }
 
 });
