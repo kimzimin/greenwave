@@ -1,4 +1,4 @@
-/*깔았던 패키지 총 정리
+	/*깔았던 패키지 총 정리
   npm i @react-navigation/native react-native-screens react-native-safe-area-context react-native-paper
   npm i @react-navigation/native-stack react-native-appearance react-native-gesture-handler react-native-reanimated
   npm i @react-native-community/masked-view @react-navigation/stack @react-navigation/bottom-tabs react-native-vector-icons
@@ -17,6 +17,9 @@ import Map from "./Map.js";
 import CalendarScreen from "./Calendar.js";
 import Home from './Home';
 import SignupScreen from './SignUp';
+import PushUp from './PushUp';
+import Start from './Start';
+
 import {
   StyleSheet,
   Text,
@@ -74,6 +77,9 @@ function App() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="SignUp" component={SignupScreen} />
       <Stack.Screen name="Tab" component={TabScreen}/>
+      <Stack.Screen name="Main" component={Main}/>
+      <Stack.Screen name="Start" component={Start}/>
+      <Stack.Screen name="PushUp" component={PushUp} />
     </Stack.Navigator>
     </NavigationContainer>);
 }
