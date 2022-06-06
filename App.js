@@ -18,6 +18,7 @@ import CalendarScreen from "./Calendar.js";
 import Home from './Home';
 import SignupScreen from './SignUp';
 import PushUp from './PushUp';
+import SitUp from './SitUp';
 import Start from './Start';
 
 import {
@@ -80,6 +81,7 @@ function App() {
       <Stack.Screen name="Main" component={Main}/>
       <Stack.Screen name="Start" component={Start}/>
       <Stack.Screen name="PushUp" component={PushUp} />
+	<Stack.Screen name="SitUp" component={SitUp} />
     </Stack.Navigator>
     </NavigationContainer>);
 }
