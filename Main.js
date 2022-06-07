@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
 
 
-function Start({navigation}) {
+function Main({navigation}) {
  
     const today = new Date();
     const year = today.getFullYear();
@@ -17,7 +17,9 @@ function Start({navigation}) {
     return (<View style={styles.container}>
      <View style={styles.head}><Ionicons name="person-circle-sharp" size={35}/>
     <Text style={styles.text}>안녕하세요!</Text>
-    <MaterialCommunityIcons style={{marginLeft:'55%'}} name="calendar-month" size={35}/></View>
+    <TouchableOpacity onPress={()=>navigation.navigate('Calendar')} style={{marginLeft:'55%'}}>
+      <MaterialCommunityIcons name="calendar-month" size={35}/></TouchableOpacity>
+    </View>
 
     <View style={styles.plan}>
     <Text style={styles.today}>{dateString}</Text></View>
@@ -62,7 +64,7 @@ function Start({navigation}) {
     </View>);
   }
   
-  export default Start;
+  export default Main;
 
   
 const styles = StyleSheet.create({
