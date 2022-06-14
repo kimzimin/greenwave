@@ -14,7 +14,7 @@ const SignupScreen=()=>{
     useEffect(()=>{
         const unsubscribe = auth.onAuthStateChanged(user => {
             if(user){
-                navigation.replace("Login")
+                navigation.replac("Home")
                 //navigator
             }
         })
