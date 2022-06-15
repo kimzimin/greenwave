@@ -7,6 +7,12 @@
   npx react-native link react-native-vector-icons react-native-appearance
 */
 
+/*수정 사항
+1. Calendar를 bottomtap으로 빼고 exercise 삭제 (or map 삭제하고 운동 추천으로 변경?...최소한 유튜브 연결이나....)
+2. 일정 관리 및 데이터베이스에 기록 저장 해결
+3. 달리기 map 기능 구현 및 기록 측정
+*/
+
 import React,{useCallback} from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -19,7 +25,8 @@ import Home from './Home';
 import SignupScreen from './SignUp';
 import PushUp from './PushUp';
 import SitUp from './SitUp';
-import Start from './Start';
+import CheckList from './CheckList.js';
+import LoginScreen from './Login';
 
 import {
   StyleSheet,
@@ -28,19 +35,8 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
-import LoginScreen from './Login';
+
 const Stack = createNativeStackNavigator();
-
-const MainCalendar = createNativeStackNavigator();
-
-function MainCalendarScreen() {
-  return (
-    <MainCalendar.Navigator screenOptions={{headerShown: false}}>
-      <MainCalendar.Screen name="MainScreen" component={Main} />
-      <MainCalendar.Screen name="Calendar" component={CalendarScreen} />
-    </MainCalendar.Navigator>
-  );
-}
 
 const Tab = createBottomTabNavigator();
 function TabScreen() {
@@ -61,10 +57,10 @@ function TabScreen() {
 
             return <Ionicons name={iconName} size={size} color={color} />;
           }}), {headerShown: false}}>
-          <Tab.Screen name = "Main" component = {MainCalendarScreen}/>
+          <Tab.Screen name = "Main" component = {Main}/>
           <Tab.Screen name = "Map" component = {Map}/>
-          <Tab.Screen name = "Exercise" component = {Map}/>
-          <Tab.Screen name = "Stat" component = {Map}/>
+          <Tab.Screen name = "Checklist" component = {CheckList}/>
+          <Tab.Screen name = "Stat" component = {CalendarScreen}/>
         </Tab.Navigator>);
 }
 
@@ -78,10 +74,8 @@ function App() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="SignUp" component={SignupScreen} />
       <Stack.Screen name="Tab" component={TabScreen}/>
-      <Stack.Screen name="MainScreen" component={Main}/>
-      <Stack.Screen name="Start" component={Start}/>
       <Stack.Screen name="PushUp" component={PushUp} />
-	<Stack.Screen name="SitUp" component={SitUp} />
+      <Stack.Screen name="SitUp" component={SitUp} />
     </Stack.Navigator>
     </NavigationContainer>);
 }
