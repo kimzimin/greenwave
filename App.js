@@ -5,18 +5,24 @@
   npm install date-fns react-native-calendars --save
   npm i -D @types/react-native-vector-icons
   npx react-native link react-native-vector-icons react-native-appearance
+  npm install react-moda
 */
 
 import React,{useCallback} from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicon from "react-native-vector-icons/Ionicons";
+import { Ionicons } from '@expo/vector-icons';
 import Main from "./Main.js";
 import Map from "./Map.js";
 import CalendarScreen from "./Calendar.js";
 import Home from './Home';
 import SignupScreen from './SignUp';
+import PushUp from './PushUp';
+import SitUp from './SitUp';
+import Start from './Start';
+import { Modal} from 'react-native';
+
 import {
   StyleSheet,
   Text,
@@ -32,7 +38,7 @@ const MainCalendar = createNativeStackNavigator();
 function MainCalendarScreen() {
   return (
     <MainCalendar.Navigator screenOptions={{headerShown: false}}>
-      <MainCalendar.Screen name="Main" component={Main} />
+      <MainCalendar.Screen name="MainScreen" component={Main} />
       <MainCalendar.Screen name="Calendar" component={CalendarScreen} />
     </MainCalendar.Navigator>
   );
@@ -45,7 +51,7 @@ function TabScreen() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'MainScreen') {
+            if (route.name === 'Main') {
               iconName = 'home-outline';
             } else if (route.name === 'Map') {
               iconName = "navigate-outline";
@@ -55,9 +61,9 @@ function TabScreen() {
               iconName = 'stats-chart-outline';
             }
 
-            return <Ionicon name={iconName} size={size} color={color} />;
+            return <Ionicons name={iconName} size={size} color={color} />;
           }}), {headerShown: false}}>
-          <Tab.Screen name = "MainScreen" component = {MainCalendarScreen}/>
+          <Tab.Screen name = "Main" component = {MainCalendarScreen}/>
           <Tab.Screen name = "Map" component = {Map}/>
           <Tab.Screen name = "Exercise" component = {Map}/>
           <Tab.Screen name = "Stat" component = {Map}/>
@@ -74,6 +80,10 @@ function App() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="SignUp" component={SignupScreen} />
       <Stack.Screen name="Tab" component={TabScreen}/>
+      <Stack.Screen name="MainScreen" component={Main}/>
+      <Stack.Screen name="Start" component={Start}/>
+      <Stack.Screen name="PushUp" component={PushUp} />
+	<Stack.Screen name="SitUp" component={SitUp} />
     </Stack.Navigator>
     </NavigationContainer>);
 }
