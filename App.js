@@ -23,8 +23,9 @@ import SitUp from './SitUp';
 import CheckList from './CheckList.js';
 import LoginScreen from './Login';
 import Start from './Start';
-import WeatherApp from './WeatherApp';
-
+import AddToDoModal from './AddToDoModal.js';
+import WeatherApp from './WeatherApp'
+import Record from './Record';
 import {
   StyleSheet,
   Text,
@@ -48,7 +49,7 @@ function TabScreen() {
          
           <Tab.Screen name = "Checklist" component = {CheckList}
           options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="checkmark-sharp" color = {color} size={size}/>),}}/>
-          <Tab.Screen name = "Stat" component = {CalendarScreen}
+          <Tab.Screen name = "Stat" component ={Record}
           options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="body-sharp" color = {color} size={size}/>),}}/>
            <Tab.Screen name = "Weather" component = {WeatherApp}
           options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="cloud-outline" color = {color} size={size}/>),}}/>
@@ -70,6 +71,8 @@ function App() {
       <Stack.Screen name="Start" component={Start} />
       <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="WeatherApp" component={WeatherApp} />
+<Stack.Screen name="AddToDoModal" component={AddToDoModal} />
+      <Stack.Screen name="record" component={record} />
     </Stack.Navigator>
     </NavigationContainer>);
 }
