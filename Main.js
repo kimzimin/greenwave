@@ -38,7 +38,7 @@ function Main({navigation}) {
     <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: '2%'}}>
                <View style={[styles.TextBox, {width: '30%', height: 100, alignItems: 'center', margin: '3%'}]}>
                  <MaterialCommunityIcons name="arm-flex" size={40}/>
-                 <Text style={[styles.goalText, {margin: 0}]}>5개</Text>
+                 <Text style={[styles.goalText, {margin: 0}]}>35개</Text>
                  <Text style={[styles.goalText, {margin: 0}]}>팔굽혀펴기</Text>
                </View>
                <View style={[styles.TextBox, {width: '30%', height: 100, alignItems: 'center', margin: '3%'}]}>
