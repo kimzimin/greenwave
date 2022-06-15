@@ -9,7 +9,7 @@
 */
 
 import React,{useCallback} from 'react';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {NavigationContainer, useNavigation, Icon} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,8 +20,10 @@ import Home from './Home';
 import SignupScreen from './SignUp';
 import PushUp from './PushUp';
 import SitUp from './SitUp';
+import CheckList from './CheckList.js';
+import LoginScreen from './Login';
 import Start from './Start';
-import { Modal} from 'react-native';
+import WeatherApp from './WeatherApp';
 
 import {
   StyleSheet,
@@ -30,43 +32,26 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
-import LoginScreen from './Login';
+
 const Stack = createNativeStackNavigator();
-
-const MainCalendar = createNativeStackNavigator();
-
-function MainCalendarScreen() {
-  return (
-    <MainCalendar.Navigator screenOptions={{headerShown: false}}>
-      <MainCalendar.Screen name="MainScreen" component={Main} />
-      <MainCalendar.Screen name="Calendar" component={CalendarScreen} />
-    </MainCalendar.Navigator>
-  );
-}
 
 const Tab = createBottomTabNavigator();
 function TabScreen() {
     return (
         <Tab.Navigator initialRouteName="MainScreen" screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
 
-            if (route.name === 'Main') {
-              iconName = 'home-outline';
-            } else if (route.name === 'Map') {
-              iconName = "navigate-outline";
-            } else if (route.name === 'Exercise') {
-              iconName = "play-circle";
-            } else {
-              iconName = 'stats-chart-outline';
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
+            return 
           }}), {headerShown: false}}>
-          <Tab.Screen name = "Main" component = {MainCalendarScreen}/>
-          <Tab.Screen name = "Map" component = {Map}/>
-          <Tab.Screen name = "Exercise" component = {Map}/>
-          <Tab.Screen name = "Stat" component = {Map}/>
+          <Tab.Screen name = "Main" component = {Main}
+          options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="home-outline" color = {color} size={size}/>),}}/>
+         
+          <Tab.Screen name = "Checklist" component = {CheckList}
+          options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="checkmark-sharp" color = {color} size={size}/>),}}/>
+          <Tab.Screen name = "Stat" component = {CalendarScreen}
+          options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="body-sharp" color = {color} size={size}/>),}}/>
+           <Tab.Screen name = "Weather" component = {WeatherApp}
+          options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="cloud-outline" color = {color} size={size}/>),}}/>
         </Tab.Navigator>);
 }
 
@@ -80,10 +65,11 @@ function App() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="SignUp" component={SignupScreen} />
       <Stack.Screen name="Tab" component={TabScreen}/>
-      <Stack.Screen name="MainScreen" component={Main}/>
-      <Stack.Screen name="Start" component={Start}/>
       <Stack.Screen name="PushUp" component={PushUp} />
-	<Stack.Screen name="SitUp" component={SitUp} />
+      <Stack.Screen name="SitUp" component={SitUp} />
+      <Stack.Screen name="Start" component={Start} />
+      <Stack.Screen name="Map" component={Map} />
+      <Stack.Screen name="WeatherApp" component={WeatherApp} />
     </Stack.Navigator>
     </NavigationContainer>);
 }
