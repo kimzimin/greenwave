@@ -1,94 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  TouchableHighlight             
-} from 'react-native';
-import Ionicon from "react-native-vector-icons/Ionicons";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import CalendarScreen from './Calendar.js'
-import { addDays, format, getDate, startOfWeek, isSameDay } from 'date-fns';
-
+import React from "react";
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import { AntDesign } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons'; 
+import { auth } from "./firebase";
+import { BorderlessButton } from "react-native-gesture-handler";
 function Main({navigation}) {
-    const date = new Date();
-    const year = date.getFullYear();
-    const month = date.getMonth()+1;
-    const day = date.getDate();
-    const text = "오늘은 " + year + "년 " + month + "월 " + day + "일입니다.";
+ 
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() +1;
+    const day = today.getDate();
+    const dateString = '오늘은 '+year+'년 '+month+'월 '+day+'일 입니다.';
+ 
+    const handleSignOut=()=>{
+      auth
+      .signOut()
+      .then(()=>{
+        navigation.replace("Home")
+      })
+      .catch(error=>alert(error.message))
+    }
 
-    const [week, setWeek] = useState([]);
 
-    useEffect(() => {
-      const weekDays = getWeekDays(date);
-       setWeek(weekDays);
-    }, [date]);
+    return (<View style={styles.container}>
+     <View style={styles.head}><Ionicons name="person-circle-sharp" size={35}/>
+    <Text style={styles.text}>안녕하세요!</Text>
+    <TouchableOpacity style={styles.button} onPress={handleSignOut}><Text style={styles.out}>로그아웃</Text></TouchableOpacity>
+    </View>
 
-    const getWeekDays = (date) => {
-      const start = startOfWeek(date, { weekStartsOn: 1});
-      const weekOfLength = 7;
-      const final = [];
-      for (let i = 0; i < weekOfLength; i++) {
-        const date = addDays(start, i);
-        final.push({
-          formatted: format(date, 'EEE'),
-          date,
-          day: getDate(date),
-        });
-      }
-      return final;
-    };
+    <View style={styles.plan}>
+    <Text style={styles.today}>{dateString}</Text></View>
 
-  return (
-  <View style={styles.container}>
-       <View style={styles.Header}>
-         <View style={{flexDirection: 'row'}}>
-            <Ionicon name="person-circle-sharp" size={40}/>
-            <Text style={{fontSize: 15, marginTop: '10%', marginLeft: '3%'}}>안녕하세요!</Text>
-         </View>
-         <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
-           <TouchableOpacity onPress={() => navigation.navigate('CalendarScreen')}>
-            <Ionicon name="calendar-outline" size={40}/>
-           </TouchableOpacity>
-         </View>
-       </View>
+    <View style={styles.smallView}>
+    <Text style={styles.text2}>목표</Text></View>
 
-       <View style={styles.Banner}>
-         <View style={[styles.TextBox, {width: '95%', height: '100%', padding: '5%'}]}>
-            <Text style={styles.textStyle}>{text}</Text>
-         </View>
-       </View>
-        
-       <View style={{flex: 7}}>
-         <View style={styles.dayList}>
-         {week.map((weekDay) => {
-           const textStyles = [styles.dayText];
-           const touchableStyles = [styles.dayText];
-           const sameDay = isSameDay(weekDay.date, date);
-
-           if (sameDay) {
-             textStyles.push(styles.selectedDayText);
-             touchableStyles.push(styles.selectedDayText);
-           }
-           return (
-             <View  style={{alignItems: 'center'}} key={weekDay.formatted}>
-               <Text style={{fontSize: 13}}>{weekDay.formatted}</Text>
-               <TouchableHighlight onPress={() => onchange(weekDay.date)} style={touchableStyles}>
-                 <Text style={{fontSize: 13}}>{weekDay.day}</Text>
-               </TouchableHighlight>
-             </View>
-           );
-         })}
-         </View>
-         
-         <View style={{flex: 6, alignItems: 'center'}}>
-             <View style={[styles.TextBox, {width: '30%', height: 20}]}><Text style={styles.goalText}>목표 개수</Text>
-             </View>
-             <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: '5%'}}>
+    <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', margin: '2%'}}>
                <View style={[styles.TextBox, {width: '30%', height: 100, alignItems: 'center', margin: '3%'}]}>
-                 <Icon name="arm-flex" size={40}/>
+                 <MaterialCommunityIcons name="arm-flex" size={40}/>
                  <Text style={[styles.goalText, {margin: 0}]}>5개</Text>
                  <Text style={[styles.goalText, {margin: 0}]}>팔굽혀펴기</Text>
                </View>
@@ -98,75 +47,132 @@ function Main({navigation}) {
                  <Text style={[styles.goalText, {margin: 0}]}>윗몸일으키기</Text>
                </View>
                <View style={[styles.TextBox, {width: '30%', height: 100, alignItems: 'center', margin: '3%'}]}>
-                 <Icon name="run" size={40}/>
-                 <Text style={[styles.goalText, {margin: 0}]}>3km</Text>
-                 <Text style={[styles.goalText, {margin: 0}]}>달리기</Text>
+                 <MaterialCommunityIcons name="run" size={40}/>
+                 <Text style={[styles.goalText, {margin: 0}]}>15:00</Text>
+                 <Text style={[styles.goalText, {margin: 0}]}>3km 달리기</Text>
                </View>
-             </View>
+               </View>
+    
+    <View style={{...styles.smallView , marginTop:'10%'}}>
+    <Text style={styles.text2}>운동시작</Text></View>
 
-             <View style={[styles.TextBox, {width: '40%', height: 20, marginTop: '5%'}]}><Text style={styles.goalText}>목표 달성률</Text>
-             </View>
-             <Image source={require("./image/chart.png")} style={{width: "85%", height: 250}}/>
-           </View>
-     </View>
-  </View>
-  );
-}
+    <View style={styles.work}>
+    <MaterialCommunityIcons style={{...styles.workIcon, marginTop:'8%'}} name="arm-flex" size={44} color="#065509" />
+    <TouchableOpacity onPress={() => navigation.navigate('PushUp')}><Text style={{...styles.workText, marginTop:'-8%'}}>팔굽혀펴기</Text>
+    <AntDesign style={{...styles.arrow, marginTop:'-6%'}} name="right" size={20} color="black" /></TouchableOpacity>
+    <MaterialCommunityIcons style={{...styles.workIcon, marginTop:'10%'}} name="human" size={44} color="#065509" />
+    <TouchableOpacity onPress={() => navigation.navigate('SitUp')}><Text style={{...styles.workText, marginTop:'-8%'}}>윗몸일으키기</Text>
+    <AntDesign style={{...styles.arrow, marginTop:'-6%'}} name="right" size={20} color="black" /></TouchableOpacity>
+    <MaterialCommunityIcons style={{...styles.workIcon, marginTop:'10%'}} name="run" size={44} color="#065509" />
+    <TouchableOpacity onPress={() => navigation.navigate('Start')}><Text style={{...styles.workText, marginTop:'-8%'}}>3km 달리기</Text>
+    <AntDesign style={{...styles.arrow, marginTop:'-6%'}} name="right" size={20} color="black" /></TouchableOpacity></View>
+    
 
-export default Main;
+    
+    </View>);
+  }
+  
+  export default Main;
 
+  
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white'
-  },
-  
-  Header: {
+
+    container: {
       flex: 1,
-      flexDirection: 'row',
-      marginTop: '3%',
-      marginHorizontal: '5%',
-      justifyContent: 'space-between',
-      alignItems: 'center'
-  },
+      backgroundColor:"white" ,
+      paddingHorizontal: 5,
+      alignItems:"center"
+    },
 
-  Banner: {
-    flex: 1,
-    marginLeft: '5%'
-  },
+    head:{
+        marginTop:'13%',
+        width:'90%',
+        flexDirection:'row'
+       
+    },
 
-  TextBox: {
-    backgroundColor: "#065509",
-    borderRadius: 20,
-    justifyContent: 'space-around',
-  },
+    smallView:{
+        backgroundColor:"#065509",
+        borderRadius: 10,
+        width:'40%',
+        padding:5,
+        alignItems:'center',
+        marginTop:'10%'
+    },
 
-  textStyle: {
-    fontSize: 15,
-    textAlign: 'left',
-    color: 'white',
-    fontWeight: 'bold'
-  },
+    plan:{
+        backgroundColor:"#065509",
+        borderRadius:15,
+        width:'93%',
+        height:'10%',
+        padding:27,
+        marginTop:'8%'
+    },
 
-  dayList: {
-    flex: 1,
-    flexDirection: 'row',
-    marginHorizontal: '3%',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  
-  dayText: {
-    color: 'grey'
-  },
+    today:{
+        fontWeight: 'bold',
+        color:'white',
+        
+    },
 
-  selectedDayText: {
-    color: 'blue'
-  },
+    icon:{
+        marginTop:'10%'
+    },
 
-  goalText: {
-    fontSize: 10, fontWeight: 'bold', textAlign: 'center', 
-    textAlignVertical: 'center', color: 'white'
-  },
+    text:{
+        fontSize:15,
+        marginTop:'3%',
+        marginLeft:'2%',
+        //marginTop:"15%",
+        //textAlign: "center"
+    },
 
+    text2:{
+        fontSize:12,
+        color:'white',
+        
+    },
+
+    work:{
+        backgroundColor:"white" ,
+        marginTop:"0%",
+        width:'113%',
+        height:'50%',
+        borderRadius:40
+    },
+
+    workText:{
+        marginLeft:'30%',
+        fontSize:16,
+      
+    },
+
+    workIcon:{
+        marginLeft:"10%"
+
+    },
+
+    arrow:{
+        marginLeft:'85%'
+    },
+
+    TextBox: {
+        backgroundColor: "#CFE3D0",
+        borderRadius: 20,
+        justifyContent: 'space-around',
+      },
+
+      goalText: {
+        fontSize: 13,  fontWeight: 'bold', textAlign: 'center', 
+      },
+      button:{
+        marginLeft: '48%',
+        backgroundColor : '#CFE3D0',
+        padding : 10,
+        borderRadius : 10,
+      },
+      out:{
+        fontWeight : 'bold',
+       
+      },  
 });
