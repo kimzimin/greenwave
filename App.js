@@ -14,7 +14,7 @@
 */
 
 import React,{useCallback} from 'react';
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {NavigationContainer, useNavigation, Icon} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -43,24 +43,17 @@ function TabScreen() {
     return (
         <Tab.Navigator initialRouteName="MainScreen" screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
 
-            if (route.name === 'Main') {
-              iconName = 'home-outline';
-            } else if (route.name === 'Map') {
-              iconName = "navigate-outline";
-            } else if (route.name === 'Exercise') {
-              iconName = "play-circle";
-            } else {
-              iconName = 'stats-chart-outline';
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
+            return 
           }}), {headerShown: false}}>
-          <Tab.Screen name = "Main" component = {Main}/>
-          <Tab.Screen name = "Map" component = {Map}/>
-          <Tab.Screen name = "Checklist" component = {CheckList}/>
-          <Tab.Screen name = "Stat" component = {CalendarScreen}/>
+          <Tab.Screen name = "Main" component = {Main}
+          options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="home-outline" color = {color} size={size}/>),}}/>
+          <Tab.Screen name = "Map" component = {Map}
+          options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="navigate-outline" color = {color} size={size}/>),}}/>
+          <Tab.Screen name = "Checklist" component = {CheckList}
+          options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="checkmark-sharp" color = {color} size={size}/>),}}/>
+          <Tab.Screen name = "Stat" component = {CalendarScreen}
+          options={{ tabBarIcon: ({color, size})=> ( <Ionicons name="body-sharp" color = {color} size={size}/>),}}/>
         </Tab.Navigator>);
 }
 
