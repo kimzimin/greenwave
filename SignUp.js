@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { TouchableOpacity,KeyboardAvoidingView, StyleSheet , Text, View ,TextInput} from 'react-native';
+import { TouchableOpacity,KeyboardAvoidingView, ScrollView, StyleSheet , Text, View ,TextInput} from 'react-native';
 import { auth } from './firebase';
 import {useState} from "react";
 import { useNavigation } from '@react-navigation/core';
@@ -31,7 +31,7 @@ const SignupScreen=()=>{
         .catch(error => alert(error.message))
     }
     return(
-        <View style={styles.container} behavior="padding">
+        <ScrollView style={styles.container} behavior="padding">
            <Text style={styles.text}>회원가입</Text>
              <Text style={styles.text2}>이메일로 계정을 만드세요.</Text>
          <Text style={styles.text3}>Email</Text>
@@ -67,7 +67,7 @@ const SignupScreen=()=>{
                         <Text style={styles.buttonOutlineText}>로그인</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 export default SignupScreen
@@ -107,6 +107,7 @@ const styles=StyleSheet.create({
     buttonOutline :{
         backgroundColor : 'white',
         marginTop : 5,
+        marginBottom: 30,
         borderColor:'#065509',
         borderWidth:2,
         paddingHorizontal : 25,
