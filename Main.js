@@ -198,7 +198,14 @@ function Main({navigation}) {
     <AntDesign style={{...styles.arrow, marginTop:'-6%'}} name="right" size={20} color="black" /></TouchableOpacity>
     <MaterialCommunityIcons style={{...styles.workIcon, marginTop:'10%'}} name="run" size={44} color="#065509" />
     <TouchableOpacity onPress={() => navigation.navigate('Running')}><Text style={{...styles.workText, marginTop:'-8%'}}>3km 달리기</Text>
-    <AntDesign style={{...styles.arrow, marginTop:'-6%'}} name="right" size={20} color="black" /></TouchableOpacity></View>
+    <AntDesign style={{...styles.arrow, marginTop:'-6%'}} name="right" size={20} color="black" /></TouchableOpacity>
+
+
+
+<TouchableOpacity onPress={() => navigation.navigate('record')}><Text style={{...styles.workText, marginTop:'10%'}}>기록하기</Text>
+    <AntDesign style={{...styles.arrow, marginTop:'-6%'}} name="right" size={20} color="black" /></TouchableOpacity>
+
+</View>
     
 
     
