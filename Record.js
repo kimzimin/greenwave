@@ -1,4 +1,4 @@
-import { View, Button, Text, Modal, SafeAreaView, ActivityIndicator, FlatList, StyleSheet} from 'react-native';
+import { View, Button, Text, Modal,TouchableHighlight, SafeAreaView, ActivityIndicator, FlatList, StyleSheet} from 'react-native';
 import InlineTextButton from './InlineTextButton';
 import AppStyles from './styles/AppStyles';
 import { auth, db } from "./firebase";
@@ -69,12 +69,28 @@ export default function ToDo({ navigation }) {
         showToDoList();
       }}
       >
-        
-        <Button 
-          title="기록 측정" 
-          onPress={() => navigation.navigate('AddToDoModal')} 
-          style={styles.btn}
-          color ='#065509' />
+        <View style={{alignItems:"center"}}>
+        <TouchableHighlight onPress={() => navigation.navigate('AddToDoModal')} style={styles.btn}>
+        <Text style={styles.text3}>기록 입력하기</Text>
+      </TouchableHighlight>
+      </View>
+      </View>
+    );
+  };
+
+  let showContent2 = () => {
+    return (
+      <View
+      onRefresh={() => {
+        loadToDoList();
+        showToDoList();
+      }}
+      >
+        <View style={{alignItems:"center"}}>
+        <TouchableHighlight onPress={() => navigation.navigate('AddToDoModal')} style={styles.btn2}>
+        <Text style={styles.text3}>목표 입력하기</Text>
+      </TouchableHighlight>
+      </View>
       </View>
     );
   };
@@ -100,8 +116,12 @@ export default function ToDo({ navigation }) {
   return (
     <SafeAreaView>
       
-      <Text style={styles.header}>측정 기록</Text>
+      <Text style={styles.header}>운동을 마치셨나요?</Text>
+      <Text style={{ fontSize: 20, alignSelf: "center"}}>기록을 입력해보세요.</Text>
       {auth.currentUser.emailVerified ? showContent() : showContent()}
+      <Text style={styles.header2}>새로운 목표를 설정하셨나요?</Text>
+      <Text style={{ fontSize: 20, alignSelf: "center"}}>목표를 기록해보세요.</Text>
+      {auth.currentUser.emailVerified ? showContent2() : showContent2()}
     </SafeAreaView>
   )
 }
@@ -110,10 +130,42 @@ const styles=StyleSheet.create({
   header: {
     fontSize: 20,
     alignSelf: "center",
-    marginTop: '30%',
+    marginTop: '45%',
   },
-  btn :{
-    marginTop:'10%',
+
+  header2: {
+    fontSize: 20,
+    alignSelf: "center",
+    marginTop: '35%',
+  },
+
+
+  btn:{
+    backgroundColor:"#065509",
+    width: 270,
+    height:75,
+    alignItems:'center',
+    paddingVertical:'5%',
+    marginTop:'7%',
+    borderRadius:15,
+    
+  },
+
+  btn2:{
+    backgroundColor:"#065509",
+    width: 270,
+    height: 75,
+    alignItems:'center',
+    paddingVertical:'5%',
+    marginTop:'7%',
+    borderRadius:15,
+    
+  },
+
+  text3:{
+    color:'white',
+    textAlign:'center',
+    fontSize:30
   }
 
 })
